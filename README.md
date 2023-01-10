@@ -1,6 +1,6 @@
 # easy_aution_client
 
-> A Vue.js project
+> 这个项目是准备打算用vue做的一个易拍卖的毕设系统
 
 ## Build Setup
 
