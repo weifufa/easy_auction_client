@@ -1,17 +1,15 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld/>
+    <FoodGuide /><router-view />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
-
+import FoodGuide from './components/FoodGuide/FoodGuide.vue';
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    FoodGuide
   }
 }
 </script>
