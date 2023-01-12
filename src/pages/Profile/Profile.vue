@@ -1,8 +1,9 @@
 <template>
     <div>
 
-        <div> <span>您还未登录易拍卖系统</span> </div>
-        <div> <van-button class="register-btn" type="danger">去登录</van-button> </div>
+        <div class="no-register"> <span>您还未登录易拍卖系统</span> </div>
+        <div><router-link to="/login"> <van-button class="register-btn" type="danger">去登录</van-button></router-link>
+        </div>
     </div>
 </template>
 
@@ -13,6 +14,15 @@ export default {
 }
 </script>
 
-<style>
 
+<style >
+.no-register {
+    margin-top: 200px;
+}
+
+.register-btn {
+    width: 35%;
+    height: 35px;
+    margin-top: 20px;
+}
 </style>
