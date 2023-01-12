@@ -28,11 +28,11 @@
                     <div :class="{ on: !loginWay }">
                         <section>
                             <section class="login_message">
-                                <input type="texy" maxlength="11" placeholder="手机/邮箱/用户名" v-model="name">
+                                <input type="texy" maxlength="11" placeholder="手机/邮箱/用户名" v-model="username">
                             </section>
                             <section class="login_verification">
-                                <input type="text" maxlength="8" placeholder="密码" v-if="showPwd" v-model="pwd">
-                                <input type="password" maxlength="8" placeholder="密码" v-else v-model="pwd">
+                                <input type="text" maxlength="8" placeholder="密码" v-if="showPwd" v-model="password">
+                                <input type="password" maxlength="8" placeholder="密码" v-else v-model="password">
                                 <div class="switch_button" :class="showPwd ? 'on' : 'off'" @click="showPwd = !showPwd">
                                     <div class="switch_circle" :class="{ right: showPwd }"></div>
                                     <span class="switch_text">{{ showPwd?'abc': '...' }}</span>
@@ -59,6 +59,7 @@
 
 <script>
 import { Dialog } from 'vant';
+import { reqPwdLogin, reqIsExitPhone } from '../../api'
 export default {
     data() {
         return {
@@ -66,9 +67,9 @@ export default {
             computeTime: 0,//计时时间
             showPwd: false,//是否显示密码
             phone: '',//手机号
-            pwd: '',//密码
+            password: '',//密码
             code: '',//短信验证码
-            name: '',//用户名
+            username: '',//用户名
             captcha: '',//图形验证码
             alertText: '',//提示文本
             // alertShow: false,//是否显示警告框
@@ -83,30 +84,38 @@ export default {
     methods: {
         //异步获取短信验证码
         async getCode() {
-            //如果当前没有即是
-            if (!this.computeTime) {
-                //倒计时
-                this.computeTime = 30
-                this.intervalId = setInterval(() => {
-                    this.computeTime--
-                    if (this.computeTime <= 0) {
-                        //停止记时
-                        clearInterval(intervalId)
-                    }
-                }, 1000)
-                //发送ajax请求
-                const result = await reqSendCode(this.phone)
-                if (result.code == 1) {
-                    //显示提示
-                    this.showAlert(result.msg)
-                    //停止倒计时
-                    if (this.computeTime) {
-                        this.computeTime = 0
-                        clearInterval(this.intervalId)
-                        this.intervalId = undefined
+            // //先去查询号码是否已注册
+            const result = await reqIsExitPhone(this.phone);
+            console.log(result)
+            if (result.code == 15002) { //如果已经注册，可以获取验证码
+                //如果当前没有即是
+                if (!this.computeTime) {
+                    //倒计时
+                    this.computeTime = 30
+                    this.intervalId = setInterval(() => {
+                        this.computeTime--
+                        if (this.computeTime <= 0) {
+                            //停止记时
+                            clearInterval(intervalId)
+                        }
+                    }, 1000)
+                    //发送ajax请求
+                    this.result = await reqSendCode(this.phone)
+                    if (this.result.code == 1) {
+                        //显示提示
+                        this.showAlert(result.msg)
+                        //停止倒计时
+                        if (this.computeTime) {
+                            this.computeTime = 0
+                            clearInterval(this.intervalId)
+                            this.intervalId = undefined
+                        }
                     }
                 }
+            } else {
+                this.showAlert('当前手机号不存在，请先进行注册!')
             }
+
         },
         showAlert(alertText) {
             // this.alertShow = true
@@ -134,12 +143,12 @@ export default {
                 result = await reqSmsLogin(phone, code)
             } else {
                 //密码登录
-                const { name, pwd, captcha } = this
-                if (!this.name) {
+                const { username, password, captcha } = this
+                if (!this.username) {
                     //手机号不正确
                     this.showAlert('手机号不正确!')
                     return
-                } else if (!this.pwd) {
+                } else if (!this.password) {
                     //密码必须指定
                     this.showAlert('密码必须指定!')
                     return
@@ -149,7 +158,7 @@ export default {
                     return
                 }
                 //发送ajax请求密码登录
-                result = await reqPwdLogin({ name, pwd, captcha })
+                result = await reqPwdLogin({ username, password, captcha })
             }
             //停止倒计时
             if (this.computeTime) {
@@ -159,9 +168,9 @@ export default {
             }
             //根据结果数据处理
             if (result.code == 0) {
-                const user = result.data
-                //将user保存到vuex的state
-                this.$store.dispatch('recordUser', user)
+                // const user = result.data
+                // //将user保存到vuex的state
+                // this.$store.dispatch('recordUser', user)
                 //去个人中心页面
                 this.$router.replace('/profile')
             } else {
