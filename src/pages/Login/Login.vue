@@ -59,7 +59,7 @@
 
 <script>
 import { Dialog } from 'vant';
-import { reqPwdLogin, reqIsExitPhone } from '../../api'
+import { reqPwdLogin, reqIsExitPhone, reqSendCode, reqSmsLogin } from '../../api'
 export default {
     data() {
         return {
@@ -87,7 +87,7 @@ export default {
             // //先去查询号码是否已注册
             const result = await reqIsExitPhone(this.phone);
             console.log(result)
-            if (result.code == 15002) { //如果已经注册，可以获取验证码
+            if (result.code == 15003) { //如果已经注册，可以获取验证码
                 //如果当前没有即是
                 if (!this.computeTime) {
                     //倒计时
@@ -96,14 +96,14 @@ export default {
                         this.computeTime--
                         if (this.computeTime <= 0) {
                             //停止记时
-                            clearInterval(intervalId)
+                            clearInterval(this.intervalId)
                         }
                     }, 1000)
                     //发送ajax请求
                     this.result = await reqSendCode(this.phone)
-                    if (this.result.code == 1) {
+                    if (this.result.code != 0) {
                         //显示提示
-                        this.showAlert(result.msg)
+                        this.showAlert(this.result.msg)
                         //停止倒计时
                         if (this.computeTime) {
                             this.computeTime = 0
