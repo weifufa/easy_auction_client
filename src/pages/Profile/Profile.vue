@@ -1,6 +1,5 @@
 <template>
     <div>
-
         <div class="no-register"> <span>您还未登录易拍卖系统</span> </div>
         <div><router-link to="/login"> <van-button class="register-btn" type="danger">去登录</van-button></router-link>
         </div>

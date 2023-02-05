@@ -180,3 +180,8 @@ body {
 .swiper-pagination-bullet-active.swiper-pagination-bullet {
     background: #02a774
 }
+
+input::-webkit-input-placeholder {
+    /* WebKit browsers 适配谷歌 */
+    color: #BDCADA;
+}

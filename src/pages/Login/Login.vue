@@ -47,7 +47,8 @@
                     </div>
                     <button class="login_submit">登录</button>
                 </form>
-                <a href="javascript:;" class="about_us">关于我们</a>
+                <a href="javascript:;" class="about_us">关于我们</a> <router-link to="/register">
+                    <span class="register">未有账号？去注册</span></router-link>
             </div>
             <a href="javascript:" class="go_back">
                 <i class="iconfont icon-jiantou2" @click="$router.back()"></i>
@@ -369,6 +370,15 @@ export default {
     text-align: center;
     color: #999;
 }
+
+.loginContainer .loginInner .login_content .register {
+    display: block;
+    font-size: 12px;
+    margin-top: 20px;
+    text-align: center;
+    color: #EE1111;
+}
+
 
 .loginContainer .loginInner .go_back {
     position: absolute;
