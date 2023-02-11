@@ -50,9 +50,10 @@
                 <a href="javascript:;" class="about_us">关于我们</a> <router-link to="/register">
                     <span class="register">未有账号？去注册</span></router-link>
             </div>
-            <a href="javascript:" class="go_back">
+            <!-- <a href="javascript:" class="go_back">
                 <i class="iconfont icon-jiantou2" @click="$router.back()"></i>
-            </a>
+            </a> -->
+            <van-icon class="go_back" name="arrow-left" color="#999" size="25px" @click="$router.back()" />
         </div>
 
     </section>
@@ -60,8 +61,11 @@
 
 <script>
 import { Dialog } from 'vant';
+
+
 import { reqPwdLogin, reqIsExitPhone, reqSendCode, reqSmsLogin } from '../../api'
 export default {
+  
     data() {
         return {
             loginWay: false,//true代表短信登录，false代表密码登录
@@ -83,6 +87,11 @@ export default {
         }
     },
     methods: {
+        // userinfo() {
+        //     const userStore = UserStore()
+        //     const { userinfo } = storeToRefs(userStore);
+        //     return userinfo
+        // },
         //异步获取短信验证码
         async getCode() {
             // //先去查询号码是否已注册
@@ -158,7 +167,7 @@ export default {
                     this.showAlert('验证码必须指定!')
                     return
                 }
-                //发送ajax请求密码登录
+                // //发送ajax请求密码登录
                 result = await reqPwdLogin({ username, password, captcha })
             }
             //停止倒计时
@@ -170,8 +179,6 @@ export default {
             //根据结果数据处理
             if (result.code == 0) {
                 // const user = result.data
-                // //将user保存到vuex的state
-                // this.$store.dispatch('recordUser', user)
                 //去个人中心页面
                 this.$router.replace('/profile')
             } else {
@@ -180,7 +187,6 @@ export default {
                 //显示警告提示
                 const msg = result.msg
                 this.showAlert(msg)
-
             }
         },
         // //关闭警告框
@@ -386,10 +392,5 @@ export default {
     left: 5px;
     width: 30px;
     height: 30px;
-}
-
-.loginContainer .loginInner .go_back>.iconfont {
-    font-size: 20px;
-    color: #999;
 }
 </style>

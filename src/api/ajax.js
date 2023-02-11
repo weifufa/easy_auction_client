@@ -2,8 +2,10 @@
  ajax请求函数模块
  返回值：promise对象（异步返回的数据时：response.data）
 */
+
 import axios from "axios";
-export default function ajax(url, data = {}, type = 'GET') {
+import store from "../store/store";
+export default function ajax(url, data = {}, type = 'GET', islogin = false) {
     return new Promise(function (resolve, reject) {
         let promise
         if (type === 'GET') {
@@ -23,6 +25,10 @@ export default function ajax(url, data = {}, type = 'GET') {
             promise = axios.post(url, data)
         }
         promise.then(respone => {
+            if (islogin) { //如果是登录，存储用户信息
+                store.commit('setUserinfo', respone.data.data); //指定方法名称提交
+                store.commit('setToken', respone.headers['authorization'])
+            }
             resolve(respone.data)//成功
         }).catch(error => {
             reject(error)//失败
