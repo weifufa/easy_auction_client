@@ -19,10 +19,18 @@ export default function ajax(url, data = {}, type = 'GET', islogin = false) {
                 url = url + '?' + dataStr
             }
             // 发送 get 请求
-            promise = axios.get(url)
+            promise = axios.get(url, {
+                headers: {
+                    "Authorization": sessionStorage.getItem("token")
+                }
+            })
         } else {
             //发送post请求
-            promise = axios.post(url, data)
+            promise = axios.post(url, data, {
+                headers: {
+                    "Authorization": sessionStorage.getItem("token")
+                }
+            })
         }
         promise.then(respone => {
             if (islogin) { //如果是登录，存储用户信息

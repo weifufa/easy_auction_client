@@ -14,3 +14,5 @@ export const reqSendCode = (phone) => ajax(`${BASE_URL + MEMBER}/sms/sendcode`, 
 export const reqSmsLogin = (phone, code) => ajax(`${BASE_URL + MEMBER}/smslogin`, { phone, code }, 'POST', true)
 //5.用户注册
 export const reqRegister = (data) => ajax(`${BASE_URL + MEMBER}/register`, data, 'POST')
+// [10、用户登出]
+export const reqLogout = () => ajax(`${BASE_URL + MEMBER}/logout`)

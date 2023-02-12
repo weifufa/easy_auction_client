@@ -8,8 +8,8 @@ export default new Vuex.Store({
     //     }
     // },
     state: {
-        userinfo: {},
-        token: ''
+        userinfo: JSON.parse(sessionStorage.getItem("userinfo")),
+        token: sessionStorage.getItem("token")
 
     },
     // getters: {
@@ -32,8 +32,18 @@ export default new Vuex.Store({
             }
             sessionStorage.setItem("token", token)
         },
+        logout(state) {
+
+        }
     }
     , actions: {
+        // //异步登出
+        // async logout({ commit }) {
+        //     const result = await reqLogout()
+        //     if (result.code == 0) {
+        //         commit(RESET_USER_INFO)
+        //     }
+        // },
         // setUserInfo(userinfo) {
         //     this.userinfo = userinfo
         //     if (userinfo == null) {
