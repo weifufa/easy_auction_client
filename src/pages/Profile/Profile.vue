@@ -1,12 +1,12 @@
 <template>
     <div>
-        <div v-if="!userinfo.username">
+        <div v-if="!userinfo">
             <div class="no-register"> <span>您还未登录易拍卖系统</span> </div>
             <div><router-link to="/login"> <van-button class="register-btn" type="danger">去登录</van-button></router-link>
             </div>
 
         </div>
-        <div>
+        <div v-if="userinfo != null">
             <section class="profile">
                 <HeaderTop title="我的"></HeaderTop>
                 <section class="profile-number">
@@ -99,14 +99,15 @@
                 </section>
                 <section class="profile_my_order border-1px">
                     <van-button class="register-btn" @click="logout" style="width:90%;display:block;margin:0 auto"
-                        type="danger">退出登录</van-button>
+                        v-if="userinfo.id" type="danger">退出登录</van-button>
                 </section>
             </section>
         </div>
     </div>
 </template>
 
-<script>import { mapState } from 'vuex'
+<script>
+import { mapState } from 'vuex'
 import { Dialog } from 'vant';
 import { reqLogout } from '../../api'
 import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
@@ -137,8 +138,10 @@ export default {
                     //     // this.$message.success("退出成功")
                     //     // this.$router.push("/article")
                     // })
-                    //发送ajax请求短信登录
+                    //退出登录
                     result = reqLogout();
+                    this.$store.commit('clear'); //指定方法名称提交//清楚用户信息
+
                 })
                 .catch(() => {
                     // on cancel
@@ -298,7 +301,7 @@ export default {
 
 .profile .profile-number .profile-link .user-info {
     float: left;
-    margin-top: 8px;
+    margin-top: -12px;
     margin-left: 15px;
 }
 

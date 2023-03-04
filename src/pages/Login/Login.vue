@@ -28,20 +28,23 @@
                     <div :class="{ on: !loginWay }">
                         <section>
                             <section class="login_message">
-                                <input type="texy" maxlength="11" placeholder="手机/邮箱/用户名" v-model="username">
+                                <input type="texy" maxlength="20" placeholder="手机号" v-model="dataForm.username">
                             </section>
                             <section class="login_verification">
-                                <input type="text" maxlength="8" placeholder="密码" v-if="showPwd" v-model="password">
-                                <input type="password" maxlength="8" placeholder="密码" v-else v-model="password">
+                                <input type="text" maxlength="15" placeholder="密码" v-if="showPwd"
+                                    v-model="dataForm.password">
+                                <input type="password" maxlength="15" placeholder="密码" v-else
+                                    v-model="dataForm.password">
                                 <div class="switch_button" :class="showPwd ? 'on' : 'off'" @click="showPwd = !showPwd">
                                     <div class="switch_circle" :class="{ right: showPwd }"></div>
                                     <span class="switch_text">{{ showPwd?'abc': '...' }}</span>
                                 </div>
                             </section>
                             <section class="login_message">
-                                <input type="text" maxlength="11" placeholder="验证码" v-model="captcha">
-                                <img class="get_verification" src="http://localhost:3000/captcha" alt="captcha"
-                                    @click="getCaptcha" ref="captcha">
+                                <input type="text" maxlength="11" placeholder="验证码" v-model="dataForm.captcha">
+                                <!-- <img class="get_verification" src="http://localhost:3000/captcha" alt="captcha"
+                                    @click="getCaptcha" ref="captcha"> -->
+                                <img class="get_verification" :src="captchaPath" @click="getCaptcha()" alt="">
                             </section>
                         </section>
                     </div>
@@ -61,11 +64,11 @@
 
 <script>
 import { Dialog } from 'vant';
+import { v4 as getUUID } from 'uuid';
 
-
-import { reqPwdLogin, reqIsExitPhone, reqSendCode, reqSmsLogin } from '../../api'
+import { reqPwdLogin, reqIsExitPhone, reqSendCode, reqSmsLogin, reqAptcha } from '../../api'
 export default {
-  
+
     data() {
         return {
             loginWay: false,//true代表短信登录，false代表密码登录
@@ -79,7 +82,16 @@ export default {
             alertText: '',//提示文本
             // alertShow: false,//是否显示警告框
             intervalId: 0,//设置间隔
+            dataForm: {
+                username: '',
+                password: '',
+                uuid: '',
+                captcha: ''
+            },
+            captchaPath: ''
         }
+    }, created() {
+        this.getCaptcha()
     },
     computed: {
         rightPhone() {
@@ -153,22 +165,22 @@ export default {
                 result = await reqSmsLogin(phone, code)
             } else {
                 //密码登录
-                const { username, password, captcha } = this
-                if (!this.username) {
+                const { username, password, captcha, uuid } = this.dataForm
+                if (!username) {
                     //手机号不正确
                     this.showAlert('手机号不正确!')
                     return
-                } else if (!this.password) {
+                } else if (!password) {
                     //密码必须指定
                     this.showAlert('密码必须指定!')
                     return
-                } else if (!this.captcha) {
+                } else if (!captcha) {
                     //验证码必须指定
                     this.showAlert('验证码必须指定!')
                     return
                 }
                 // //发送ajax请求密码登录
-                result = await reqPwdLogin({ username, password, captcha })
+                result = await reqPwdLogin({ username, password, uuid, captcha })
             }
             //停止倒计时
             if (this.computeTime) {
@@ -194,10 +206,17 @@ export default {
         //     this.alertText = ''
         //     this.alertShow = false
         // },
-        //获取一个新的图片验证码
-        getCaptcha() {
-            //每次指定的src要不一样
-            this.$refs.captcha.src = 'http://localhost:3000/captcha?time=' + Date.now()
+        // //获取一个新的图片验证码
+        // getCaptcha() {
+        //     //每次指定的src要不一样
+        //     this.$refs.captcha.src = 'http://localhost:3000/captcha?time=' + Date.now()
+        // }
+        // 获取验证码
+        async getCaptcha() {
+            let uuid = getUUID()
+            this.dataForm.uuid = uuid
+            await reqAptcha(uuid) //发送请求
+            this.captchaPath = "http://localhost:8080/api/member/captcha.jpg?uuid=" + uuid
         }
     }
 }
@@ -284,6 +303,7 @@ export default {
     color: #ccc;
     font-size: 14px;
     background: transparent;
+    width: 120px;
 }
 
 .loginContainer .loginInner .login_content>form>div .login_message .get_verification.right_phone {

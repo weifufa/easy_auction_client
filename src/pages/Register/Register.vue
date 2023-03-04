@@ -52,6 +52,7 @@
           </div>
         </van-form>
       </div>
+      <van-icon class="go_back" name="arrow-left" color="#999" size="25px" @click="$router.back()" />
     </div>
   </section>
 </template>
@@ -202,5 +203,13 @@ export default {
 
 .get_verification.right_phone {
   color: #000;
+}
+
+.go_back {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 30px;
+  height: 30px;
 }
 </style> 

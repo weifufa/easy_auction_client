@@ -29,7 +29,7 @@ export default new VueRouter({
             component: Profile,
             meta: {
                 showFooter: true,
-                requiredLogin: true
+                requiredLogin: false
             }
         }, {
             path: '*',

@@ -32,8 +32,11 @@ export default new Vuex.Store({
             }
             sessionStorage.setItem("token", token)
         },
-        logout(state) {
-
+        clear(state) { //退出登录
+            sessionStorage.removeItem("token")
+            sessionStorage.removeItem("userinfo")
+            state.userinfo = {}
+            state.token = '';
         }
     }
     , actions: {
