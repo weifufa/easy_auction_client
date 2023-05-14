@@ -4,6 +4,9 @@ const BASE_URL = '/api'
 
 //会员模块
 const MEMBER = '/member'
+
+//商品模块
+const PRODUCT = '/product'
 //1.用户名密码登录
 export const reqPwdLogin = ({ username, password, uuid, captcha }) => ajax(`${BASE_URL + MEMBER}/login`, { username, password, uuid, captcha }, 'POST', true)
 //2.查询手机号是否已经注册
@@ -19,3 +22,7 @@ export const reqLogout = () => ajax(`${BASE_URL + MEMBER}/logout`)
 
 // [11、获取图片验证码]
 export const reqAptcha = (uuid) => ajax(`${BASE_URL + MEMBER}/captcha.jpg`, { uuid })
+
+//获取拍品信息
+
+export const getAuctionNotStart = () => ajax(`${BASE_URL + PRODUCT}/auction/getAuctionNotStart`, {}, 'get')

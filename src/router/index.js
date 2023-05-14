@@ -6,6 +6,7 @@ import Category from "../pages/Category/Category.vue"
 import Profile from "../pages/Profile/Profile.vue"
 import Login from "../pages/Login/Login.vue"
 import Register from "../pages/Register/Register.vue"
+import Detail from "../pages/detail/index.vue"
 //声明使用路由
 Vue.use(VueRouter)
 export default new VueRouter({
@@ -23,13 +24,12 @@ export default new VueRouter({
             meta: {
                 showFooter: true
             }
-        }
-        , {
+        }, {
             path: '/profile',
             component: Profile,
             meta: {
                 showFooter: true,
-                requiredLogin: false
+                requiredLogin: true
             }
         }, {
             path: '*',
@@ -40,6 +40,12 @@ export default new VueRouter({
         }, {
             path: '/register',
             component: Register
+        }, {
+            path: '/detail',
+            component: Detail,
+            meta: {
+                requiredLogin: true
+            }
         },
     ],
     mode: 'history'

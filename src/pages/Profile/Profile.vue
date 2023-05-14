@@ -169,7 +169,7 @@ export default {
 }
 
 .profile .header {
-    background-color: #02a774;
+    background-color: #EE1111;
     position: fixed;
     z-index: 100;
     left: 0;
@@ -271,7 +271,7 @@ export default {
 }
 
 .profile .msite_nav .swiper-container .swiper-pagination>span.swiper-pagination-bullet-active {
-    background: #02a774;
+    background: #EE1111;
 }
 
 .profile .profile-number {
@@ -281,7 +281,7 @@ export default {
 .profile .profile-number .profile-link {
     position: relative;
     display: block;
-    background: #02a774;
+    background: #EE1111;
     padding: 20px 10px;
 }
 
@@ -419,7 +419,7 @@ export default {
 }
 
 .profile .profile_my_order .my_order>span .icon-order-s {
-    color: #02a774;
+    color: #EE1111;
 }
 
 .profile .profile_my_order .my_order>span .icon-jifen {
@@ -431,7 +431,7 @@ export default {
 }
 
 .profile .profile_my_order .my_order>span .icon-fuwu {
-    color: #02a774;
+    color: #EE1111;
 }
 
 .profile .profile_my_order .my_order .my_order_div {
