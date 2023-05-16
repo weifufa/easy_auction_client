@@ -25,7 +25,7 @@ steps:
       username: 韦fufa
       password: aliyun123456
       registry:  registry.cn-hangzhou.aliyuncs.com
-      repo: registry.cn-hangzhou.aliyuncs.com/weifufa/easy_admin_client
+      repo: registry.cn-hangzhou.aliyuncs.com/weifufa/easy_aution_client
       tags: 1.0.0
 
 volumes:
