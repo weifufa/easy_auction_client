@@ -6,7 +6,7 @@
         class="main"
         v-for="(item, index) in dataFrom"
         :key="index"
-        @click="GoDetail"
+        @click="GoDetail(item.auctionId)"
       >
         <img :src="item.imageArray[0]" />
         <div class="name">{{ item.auctionName }}</div>
@@ -73,8 +73,8 @@ export default {
   },
   methods: {
     // 跳转详情页
-    GoDetail() {
-      this.$router.push("/detail");
+    GoDetail(auctionId) {
+      this.$router.push({ path: "/detail", query: { queryId: auctionId } });
     },
     async getAuctionNotStart() {
       const result = await getAuctionNotStart();

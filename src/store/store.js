@@ -9,7 +9,8 @@ export default new Vuex.Store({
     // },
     state: {
         userinfo: JSON.parse(sessionStorage.getItem("userinfo")),
-        token: sessionStorage.getItem("token")
+        token: sessionStorage.getItem("token"),
+        
 
     },
     // getters: {
