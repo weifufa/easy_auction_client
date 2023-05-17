@@ -19,7 +19,7 @@ export default new Vuex.Store({
     //     }
     // },
     mutations: {
-        setUserinfo(state, userinfo) {  //出发mutatil
+        setUserinfo(state, userinfo) {  //出发1mutatil
             if (userinfo == null) {
                 sessionStorage.removeItem("userinfo")
             }
