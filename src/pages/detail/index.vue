@@ -107,8 +107,8 @@
 </template>
 
 <script>
-import { Dialog, Toast } from "vant";
-import Swiper from "../../pages/Home/swiper";
+import { Dialog, Toast, SwipeItem } from "vant";
+// import Swiper from "../../pages/Home/swiper";
 import { CountDown } from "vant";
 import { GoodsAction, GoodsActionIcon, GoodsActionButton } from "vant";
 import {
@@ -118,9 +118,6 @@ import {
   getAlreadyBid,
 } from "@/api";
 export default {
-  components: {
-    Swiper,
-  },
   data() {
     return {
       //isAlreadyBid: false, //是否是最高价
