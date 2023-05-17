@@ -230,7 +230,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .detail {
   padding: 0 10px;
 }
