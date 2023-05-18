@@ -284,7 +284,7 @@ export default {
       this.dataForm.uuid = uuid;
       await reqAptcha(uuid); //发送请求
       this.captchaPath =
-        "http://weifufa:8081/api/member/captcha.jpg?uuid=" + uuid;
+        "http://www.weifufa.cn:99/api/member/captcha.jpg?uuid=" + uuid;
     },
   },
 };
