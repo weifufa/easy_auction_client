@@ -41,3 +41,7 @@ export const getMaxPrice = (auctionId) => ajax(`${BASE_URL + PRODUCT}/auction/ge
 //获取用于已经竞拍的拍品价格
 export const getAlreadyBid = (auctionId) => ajax(`${BASE_URL + PRODUCT}/auction/getAlreadyBid`, { auctionId })
 
+//获取订单信息
+export const getOrderMessage = () => ajax(`${BASE_URL + PRODUCT}/auction/getOrderMessage`)
+
+

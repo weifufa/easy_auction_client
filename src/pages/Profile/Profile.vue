@@ -47,7 +47,7 @@
                 </section>
                 <section class="profile_my_order border-1px">
                     <!-- 我的订单 -->
-                    <a href='javascript:' class="my_order">
+                    <span @click="GoOrder()" class="my_order">
                         <span>
                             <i class="iconfont icon-order-s"></i>
                         </span>
@@ -57,7 +57,7 @@
                                 <i class="iconfont icon-jiantou1"></i>
                             </span>
                         </div>
-                    </a>
+                    </span>
                     <!-- 积分商城 -->
                     <a href='javascript:' class="my_order">
                         <span>
@@ -119,7 +119,9 @@ export default {
         HeaderTop
     },
     methods: {
-
+        GoOrder(){
+        this.$router.push({ path: "/order"});
+        },
         logout() {
             let result
             Dialog.confirm({

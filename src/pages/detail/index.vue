@@ -1,15 +1,10 @@
 <template>
   <div class="detail">
-    <van-icon
-      class="arrow-left"
-      name="arrow-left"
-      size="1.5rem"
-      @click="$router.back()"
-    />
+    <van-icon class="arrow-left" name="arrow-left" size="1.5rem" @click="$router.back()" />
     <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
-      <van-swipe-item v-for="(image, index) in dataFrom.images" :key="index"
-        ><img :src="image" class="img"
-      /></van-swipe-item>
+      <van-swipe-item v-for="(image, index) in dataFrom.images" :key="index">
+        <img :src="image" class="img" />
+      </van-swipe-item>
     </van-swipe>
     <div class="mark">
       <div class="In_auction">拍卖中</div>
@@ -25,12 +20,8 @@
               <span class="colon">:</span>
               <span class="block">{{ timeData.seconds }}</span>
             </template>
-          </van-count-down> -->
-          <van-count-down
-            style="color: #ee0a24"
-            :time="time"
-            format="DD 天 HH 时 mm 分 ss 秒"
-          />
+          </van-count-down>-->
+          <van-count-down style="color: #ee0a24" :time="time" format="DD 天 HH 时 mm 分 ss 秒" />
         </div>
       </div>
     </div>
@@ -58,7 +49,7 @@
         <div class="good_price">￥{{ AlreadyBid }}</div>
       </div>
     </div>
-    <div class="auction_detail">{{ dataFrom.auctionName }}</div>
+    <div class="auction_detail">{{ dataFrom.remark }}</div>
     <!-- 名称详情 -->
     <div class="goods_detail1">
       <img src="../../assets/temp/temp1.png" width="100%" />
@@ -68,11 +59,7 @@
       <van-goods-action-icon icon="chat-o" text="客服" />
       <van-goods-action-icon icon="cart-o" text="购物车" />
       <van-goods-action-icon icon="shop-o" text="店铺" />
-      <van-goods-action-button
-        type="danger"
-        text="参与竞拍"
-        @click="toggleShow()"
-      />
+      <van-goods-action-button type="danger" text="参与竞拍" @click="toggleShow()" />
       <van-popover placement="top" />
     </van-goods-action>
 
@@ -83,15 +70,11 @@
         <!-- <div class="clear" @click="show">清空</div> -->
         <div class="upprice">
           <van-tag type="danger" @click="actionSubmit(100)">+100</van-tag>
-          <van-tag type="danger" size="medium" @click="actionSubmit(200)"
-            >+200</van-tag
-          >
-          <van-tag type="danger" size="large" @click="actionSubmit(300)"
-            >+300</van-tag
-          >
+          <van-tag type="danger" size="medium" @click="actionSubmit(200)">+200</van-tag>
+          <van-tag type="danger" size="large" @click="actionSubmit(300)">+300</van-tag>
         </div>
         <div class="other_price">
-          <span> 请输入价格：</span>
+          <span>请输入价格：</span>
           <van-stepper
             class="stepper"
             theme="round"
@@ -115,7 +98,7 @@ import {
   getAuctionDetail,
   submitAuction,
   getMaxPrice,
-  getAlreadyBid,
+  getAlreadyBid
 } from "@/api";
 export default {
   data() {
@@ -129,7 +112,7 @@ export default {
       time: 0,
       dataFrom: { images: [] },
       isShow: false,
-      queryId: this.$route.query.queryId,
+      queryId: this.$route.query.queryId
     };
   },
   methods: {
@@ -160,11 +143,11 @@ export default {
       }
       Dialog.confirm({
         title: "出价",
-        message: "您确定加价" + bid + "元吗？",
+        message: "您确定加价" + bid + "元吗？"
       })
         .then(() => {
           var data = { auctionId: this.dataFrom.auctionId, bid: offerPrice }; //出价后的价格
-          submitAuction(data).then((res) => {
+          submitAuction(data).then(res => {
             console.log(res);
             if (res.code == 0) {
               Toast.success("出价成功");
@@ -213,7 +196,7 @@ export default {
     show() {
       this.isShow = !this.isShow; //关闭·
       this.schedule = 0;
-    },
+    }
   },
   created() {
     this.inItData();
@@ -226,7 +209,7 @@ export default {
       this.getMaxPrice();
     }, 5000);
   },
-  computed: {},
+  computed: {}
 };
 </script>
 
@@ -361,6 +344,7 @@ export default {
 }
 .auction_detail {
   float: left;
+  line-height: 28px;
   margin: 20px 10px;
 }
 .lisk-mark {

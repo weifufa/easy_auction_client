@@ -7,6 +7,7 @@ import Profile from "../pages/Profile/Profile.vue"
 import Login from "../pages/Login/Login.vue"
 import Register from "../pages/Register/Register.vue"
 import Detail from "../pages/detail/index.vue"
+import Order from "../pages/Order/Order.vue"
 //声明使用路由
 Vue.use(VueRouter)
 export default new VueRouter({
@@ -32,7 +33,7 @@ export default new VueRouter({
                 requiredLogin: true
             }
         }, {
-            path: '*',
+            path: '/',
             redirect: '/home'
         }, {
             path: '/login',
@@ -43,6 +44,12 @@ export default new VueRouter({
         }, {
             path: '/detail',
             component: Detail,
+            meta: {
+                requiredLogin: true
+            }
+        }, {
+            path: '/order',
+            component: Order,
             meta: {
                 requiredLogin: true
             }

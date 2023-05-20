@@ -10,9 +10,7 @@
       >
         <img :src="item.imageArray[0]" />
         <div class="name">{{ item.auctionName }}</div>
-        <div class="remark">
-          {{ item.remark }}
-        </div>
+        <div class="remark">{{ item.remark }}</div>
         <div class="price">
           <p>起拍价：￥{{ item.startPrice }}</p>
         </div>
@@ -27,7 +25,7 @@ export default {
   data() {
     return {
       dataFrom: {},
-      images11: "",
+      images11: ""
       // dataFrom: [
       //   {
       //     img: "https://img11.360buyimg.com/n1/s600x600_jfs/t1/194306/22/32744/51148/6407eebbF54e98f18/6b5b0c8fcc5d1ba5.jpg!q70",
@@ -81,12 +79,12 @@ export default {
       if (result.code == 0) {
         this.dataFrom = result.data;
       }
-    },
+    }
   },
   created() {
     //获取未开拍商品
     this.getAuctionNotStart();
-  },
+  }
 };
 </script>
 
@@ -117,6 +115,9 @@ export default {
 }
 
 .main img {
+  margin-top: 10px;
+  height: 161px;
+  width: 161px;
   max-height: 161px;
   max-width: 164px;
 }
@@ -137,6 +138,7 @@ export default {
   height: 15px;
   font-size: 8px;
   font-weight: bold;
+  overflow: hidden;
   text-align: center;
   line-height: 15px;
   color: #af454f;
